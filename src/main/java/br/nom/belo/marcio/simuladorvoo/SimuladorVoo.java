@@ -85,14 +85,14 @@ class Aeroporto implements Runnable {
         LOG.info( "{} tem pista disponível? {}", nomeAeroporto, (temPistaDisponivel ? "Sim" : "Não"));
 
         // Notifica a mudanca de estado para quem estiver esperando.
-        if( temPistaDisponivel) this.notify();
+        if( temPistaDisponivel) this.notifyAll();
     }
 
     public void run() {
 
         LOG.info( "Rodando aeroporto {}", nomeAeroporto);
         
-        while (true) {
+        while (true) { // NOSONAR
             try {
                 mudarEstadoPistaDisponivel();
                 // Coloca a thread aeroporto dormindo por um tempo de 0 a 5s
