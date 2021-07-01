@@ -1,5 +1,7 @@
 package br.nom.belo.marcio.simuladorvoo;
 
+import java.util.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,6 +65,7 @@ class Aeroporto implements Runnable {
     private boolean temPistaDisponivel = true;
     private String nomeAeroporto;
     private static final Logger LOG = LoggerFactory.getLogger( "Aeroporto");
+    private Random random = new Random();
 
     public Aeroporto(String nomeAeroporto) {
         
@@ -88,11 +91,12 @@ class Aeroporto implements Runnable {
     public void run() {
 
         LOG.info( "Rodando aeroporto {}", nomeAeroporto);
+        
         while (true) {
             try {
                 mudarEstadoPistaDisponivel();
                 // Coloca a thread aeroporto dormindo por um tempo de 0 a 5s
-                Thread.sleep((int)(Math.random()*5000)); 
+                Thread.sleep( random.nextInt( 5000)); 
             } catch (InterruptedException e) {
 
                 LOG.error( AppMessages.MSG_THREAD_INTERROMPIDA);
