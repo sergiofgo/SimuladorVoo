@@ -31,12 +31,13 @@ class Aviao implements Runnable {
         decolar();
         voar();
         aterrisar();
+        LOG.info( "{} em solo.", idAviao);
     }
 
     private void decolar() {
-        LOG.info( "{}: esperando pista...", idAviao);
-        String acao = idAviao + ": decolando...";
-        aeroporto.esperarPistaDisponivel( acao); // Espera uma pista livre
+
+        aeroporto.esperarPistaDisponivel( idAviao); // Espera uma pista livre
+        LOG.info( "{} decolando...", idAviao);
     }
 
     private void voar() {
@@ -54,9 +55,8 @@ class Aviao implements Runnable {
 
     private void aterrisar() {
 
-        LOG.info( "{}: esperando pista...", idAviao);
-        String acao = idAviao + ": aterissando...";
-        aeroporto.esperarPistaDisponivel( acao); // Espera uma pista livre
+        aeroporto.esperarPistaDisponivel( idAviao); // Espera uma pista livre
+        LOG.info( "{} aterrisando...", idAviao);
     }
 }
 
@@ -72,9 +72,9 @@ class Aeroporto implements Runnable {
         this.nomeAeroporto = nomeAeroporto;
     }
 
-    public synchronized void esperarPistaDisponivel(String acao) {
+    public synchronized void esperarPistaDisponivel(String idAviao) {
         
-        LOG.info( acao);
+        LOG.info( "{} autoriza {} para utilizar pista", nomeAeroporto, idAviao);
     }
 
     public synchronized void mudarEstadoPistaDisponivel() {
@@ -119,12 +119,12 @@ public final class SimuladorVoo {
         // Constroi aeroporto e inicia sua execucao.
         // NÃO MEXER NESSE TRECHO
         Aeroporto santosDumont = new Aeroporto( "Santos Dumont");
-        Thread threadAeroporto = new Thread( santosDumont);
+        Thread threadAeroporto = new Thread( santosDumont, "santosDumont");
 
         // Constrói aviao e inicia sua execucao.
         // NÃO MEXER NESSE TRECHO
         Aviao aviao14bis = new Aviao( santosDumont, "Avião 14BIS",10000);
-        Thread thread14bis = new Thread( aviao14bis);
+        Thread thread14bis = new Thread( aviao14bis, "aviao14bis");
 
         // Inicia as threads
         threadAeroporto.start();
