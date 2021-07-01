@@ -82,6 +82,7 @@ class Aeroporto implements Runnable {
     public synchronized void esperarPistaDisponivel(String idAviao) {
         
         LOG.info( "{} autoriza {} para utilizar pista", nomeAeroporto, idAviao);
+        temPistaDisponivel = false;
     }
 
     public synchronized void mudarEstadoPistaDisponivel() {
