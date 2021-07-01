@@ -64,8 +64,8 @@ class Aeroporto implements Runnable {
 
     private boolean temPistaDisponivel = true;
     private String nomeAeroporto;
-    private static final Logger LOG = LoggerFactory.getLogger( "Aeroporto");
     private Random random = new Random();
+    private static final Logger LOG = LoggerFactory.getLogger( "Aeroporto");
 
     public Aeroporto(String nomeAeroporto) {
         
@@ -98,7 +98,7 @@ class Aeroporto implements Runnable {
 
         LOG.info( "Rodando aeroporto {}", nomeAeroporto);
         
-        while (true) { // NOSONAR
+        do {
             try {
                 mudarEstadoPistaDisponivel();
                 // Coloca a thread aeroporto dormindo por um tempo de 0 a 5s
@@ -107,7 +107,7 @@ class Aeroporto implements Runnable {
 
                 Util.logarEReinterromper();
             }
-        }
+        } while( true); // NOSONAR
     }
 }
 /*
