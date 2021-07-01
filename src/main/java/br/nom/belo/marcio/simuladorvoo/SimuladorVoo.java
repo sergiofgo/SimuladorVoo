@@ -36,6 +36,7 @@ class Aviao implements Runnable {
 
     private void decolar() {
 
+        LOG.info( "{} pedindo autorização ao {} para decolar...", idAviao, aeroporto.getNomeAeroporto());
         aeroporto.esperarPistaDisponivel( idAviao); // Espera uma pista livre
         LOG.info( "{} decolando...", idAviao);
     }
@@ -55,6 +56,7 @@ class Aviao implements Runnable {
 
     private void aterrisar() {
 
+        LOG.info( "{} pedindo autorização ao {} para aterrisar...", idAviao, aeroporto.getNomeAeroporto());
         aeroporto.esperarPistaDisponivel( idAviao); // Espera uma pista livre
         LOG.info( "{} aterrisando...", idAviao);
     }
@@ -70,6 +72,10 @@ class Aeroporto implements Runnable {
     public Aeroporto(String nomeAeroporto) {
         
         this.nomeAeroporto = nomeAeroporto;
+    }
+
+    public String getNomeAeroporto() {
+        return nomeAeroporto;
     }
 
     public synchronized void esperarPistaDisponivel(String idAviao) {
