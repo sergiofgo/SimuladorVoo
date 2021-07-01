@@ -25,8 +25,7 @@ class Aviao implements Runnable {
             Thread.sleep( tempoVoo / 2);
         } catch (InterruptedException ie) {
             
-            LOG.info( AppMessages.MSG_THREAD_INTERROMPIDA);
-            Thread.currentThread().interrupt();
+            Util.logarEReinterromper();
         }
         decolar();
         voar();
@@ -49,8 +48,7 @@ class Aviao implements Runnable {
             Thread.sleep( tempoVoo);
         } catch (InterruptedException e) {
             
-            LOG.error( AppMessages.MSG_THREAD_INTERROMPIDA);
-            Thread.currentThread().interrupt();
+            Util.logarEReinterromper();
         }
     }
 
@@ -107,8 +105,7 @@ class Aeroporto implements Runnable {
                 Thread.sleep( random.nextInt( 5000)); 
             } catch (InterruptedException e) {
 
-                LOG.error( AppMessages.MSG_THREAD_INTERROMPIDA);
-                Thread.currentThread().interrupt();
+                Util.logarEReinterromper();
             }
         }
     }
@@ -144,16 +141,21 @@ public final class SimuladorVoo {
             threadAeroporto.join();
         } catch (InterruptedException ex) {
             
-            LOG.error( AppMessages.MSG_THREAD_INTERROMPIDA);
-            Thread.currentThread().interrupt();
+            Util.logarEReinterromper();
         }
         LOG.info( "Terminando thread principal.");
     }
 }
 
-class AppMessages {
+class Util {
 
-    static final String MSG_THREAD_INTERROMPIDA = "Thread interrompida";
+    private static final Logger LOG = LoggerFactory.getLogger( "Util");
 
-    private AppMessages() { }
+    private Util() { }
+
+    static void logarEReinterromper() {
+
+        LOG.error( "Thread interrompida");
+        Thread.currentThread().interrupt();
+    }
 }
