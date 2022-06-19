@@ -31,7 +31,7 @@ class Aviao implements Runnable {
   }
 
   private void decolar() {
-    LOG.info("{} pedindo autorização ao {} para decolar...", idAviao, aeroporto.getNomeAeroporto());
+    LOG.info("{} pedindo autorizacao ao {} para decolar...", idAviao, aeroporto.getNomeAeroporto());
     aeroporto.esperarPistaDisponivel(idAviao); // Espera uma pista livre
     LOG.info("{} decolando...", idAviao);
   }
@@ -46,7 +46,7 @@ class Aviao implements Runnable {
   }
 
   private void aterrisar() {
-    LOG.info("{} pedindo autorização ao {} para aterrisar...", idAviao, aeroporto.getNomeAeroporto());
+    LOG.info("{} pedindo autorizacao ao {} para aterrisar...", idAviao, aeroporto.getNomeAeroporto());
     aeroporto.esperarPistaDisponivel(idAviao); // Espera uma pista livre
     LOG.info("{} aterrisando...", idAviao);
   }
@@ -82,7 +82,7 @@ class Aeroporto implements Runnable {
   public synchronized void mudarEstadoPistaDisponivel() {
     // Inverte o estado da pista.
     temPistaDisponivel = !temPistaDisponivel;
-    LOG.info("{} tem pista disponível? {}", nomeAeroporto, (temPistaDisponivel ? "Sim" : "Não"));
+    LOG.info("{} tem pista disponivel? {}", nomeAeroporto, (temPistaDisponivel ? "Sim" : "Nao"));
 
     // Notifica a mudanca de estado para quem estiver esperando.
     if (temPistaDisponivel) {
@@ -116,19 +116,19 @@ public final class SimuladorVoo {
     Thread threadAeroporto = new Thread(santosDumont, "santosDumont");
 
     // Constrói aviao e inicia sua execucao - NÃO MEXER NESSE TRECHO
-    Aviao aviao14bis = new Aviao(santosDumont, "Avião 14BIS", 10000);
+    Aviao aviao14bis = new Aviao(santosDumont, "Aviao 14BIS", 10000);
     Thread thread14bis = new Thread(aviao14bis, "aviao14bis");
 
-    Aviao aviaoTecoTeco = new Aviao(santosDumont, "Avião Teco Teco", SimuladorVoo.random.nextInt(10000));
+    Aviao aviaoTecoTeco = new Aviao(santosDumont, "Aviao Teco Teco", SimuladorVoo.random.nextInt(10000));
     Thread threadTecoTeco = new Thread(aviaoTecoTeco, "aviaoTecoTeco");
 
-    Aviao aviaoBoeing747 = new Aviao(santosDumont, "Avião Boeing 747", SimuladorVoo.random.nextInt(10000));
+    Aviao aviaoBoeing747 = new Aviao(santosDumont, "Aviao Boeing 747", SimuladorVoo.random.nextInt(10000));
     Thread threadBoeing747 = new Thread(aviaoBoeing747, "aviaoBoeing747");
 
-    Aviao aviaoAirbus380 = new Aviao(santosDumont, "Avião Airbus 380", SimuladorVoo.random.nextInt(10000));
+    Aviao aviaoAirbus380 = new Aviao(santosDumont, "Aviao Airbus 380", SimuladorVoo.random.nextInt(10000));
     Thread threadAirbus380 = new Thread(aviaoAirbus380, "aviaoAirbus380");
 
-    Aviao aviaoConcorde = new Aviao(santosDumont, "Avião Concorde", SimuladorVoo.random.nextInt(10000));
+    Aviao aviaoConcorde = new Aviao(santosDumont, "Aviao Concorde", SimuladorVoo.random.nextInt(10000));
     Thread threadConcorde = new Thread(aviaoConcorde, "aviaoConcorde");
 
     // Inicia as threads
